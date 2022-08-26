@@ -389,6 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 354612918}
   - component: {fileID: 354612917}
+  - component: {fileID: 354612920}
   - component: {fileID: 354612919}
   m_Layer: 0
   m_Name: moving_platfrom
@@ -478,11 +479,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _currentID: 0
-  _listPos:
-  - {x: 0, y: 0}
-  - {x: -6.23, y: 0}
-  - {x: -6.23, y: 5.79}
-  - {x: 8.16, y: 6.85}
+  _listPos: []
+--- !u!114 &354612920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354612916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a691f5775de48a4ace0a1eb3016b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLoop: 0
+  List_Points:
+  - {x: 5.6482677, y: 4.3113995, z: 0}
+  - {x: -6.4569674, y: 3.1664443, z: 0}
+  - {x: -5.6233234, y: -2.0140507, z: 0}
+  - {x: 5.8690405, y: -0.46585703, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

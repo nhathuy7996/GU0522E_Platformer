@@ -6,13 +6,16 @@ public class MovingObject : MonoBehaviour
 {
     [SerializeField] float _speed = 10;
     [SerializeField] int _currentID = 0;
-    Vector2 _target;
-    [SerializeField] List<Vector2> _listPos = new List<Vector2>();
+    Vector3 _target;
+    [SerializeField] List<Vector3> _listPos = new List<Vector3>();
 
     bool _way = true;
     // Start is called before the first frame update
     void Start()
     {
+
+        _listPos = this.GetComponent<PathCreator>().getList_Points;
+
         if (_listPos.Count == 0)
             return;
         _target = _listPos[_currentID];
