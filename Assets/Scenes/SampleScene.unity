@@ -372,6 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 300
   _jumpForce: 500
+  _slopeForce: 50
   isOnSlope: 0
   _frictions:
   - {fileID: 6200000, guid: abf870c9a92f24e6caa6bd1da7c07810, type: 2}
