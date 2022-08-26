@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         else
             movement.y = _rb.velocity.y;
 
-        Debug.DrawRay(this.transform.position, movement, Color.red);
+       // Debug.DrawRay(this.transform.position, movement, Color.red);
 
        
         _rb.velocity = movement;
