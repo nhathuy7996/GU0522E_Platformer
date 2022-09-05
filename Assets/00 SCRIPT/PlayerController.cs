@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     float _speed, _jumpForce, _slopeForce;
     [SerializeField]
     bool isGround = false;
-    [SerializeField] bool isOnSlope;
+    [SerializeField] bool isOnSlope, isOnLeather;
     [SerializeField] List<PhysicsMaterial2D> _frictions = new List<PhysicsMaterial2D>();
 
     [Header("Watching")]
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
         IDLE = 1,
         MOVING = 2,
         JUMP = 3,
+        CLIMB = 4
     }
 
     // Start is called before the first frame update
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         _rb = this.GetComponent<Rigidbody2D>();
         _colli = this.GetComponent<Collider2D>();
-
+        _animControl = this.GetComponentInChildren<BaseAnimation>();
     }
 
     // Update is called once per frame
@@ -49,11 +50,14 @@ public class PlayerController : MonoBehaviour
 
         updateState();
 
+       
+
         _animControl.ChangeAnim(PLAY_STATE);
     }
 
     void Moving()
     {
+       
 
         float dir = Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
 
@@ -73,7 +77,14 @@ public class PlayerController : MonoBehaviour
             movement.y = Mathf.Sin((_anglePlatform) * Mathf.Deg2Rad) * dir;
         else
             movement.y = _rb.velocity.y;
-       
+
+
+        if (isOnLeather)
+        {
+            float dirUp = Input.GetAxisRaw("Vertical") * _speed * Time.deltaTime;
+            movement.y = dirUp;
+        }
+
         _rb.velocity = movement;
 
         if (Input.GetKey(KeyCode.Space) && isGround)
@@ -146,6 +157,16 @@ public class PlayerController : MonoBehaviour
     }
 
     void updateState() {
+
+        if (isOnLeather)
+        {
+            if(Input.GetAxisRaw("Vertical") != 0)
+            {
+                PLAY_STATE = playerState.CLIMB;
+            }
+
+        }
+
         if (isGround)
         {
             if (_rb.velocity.x != 0)
@@ -153,14 +174,32 @@ public class PlayerController : MonoBehaviour
             else
                 PLAY_STATE = playerState.IDLE;
         }
-        else
+        else if(!isOnLeather)
         {
-            if(_rb.velocity.y > 0)
+            if (_rb.velocity.y > 0)
                 PLAY_STATE = playerState.JUMP;
             else if (_rb.velocity.y < 0)
                 PLAY_STATE = playerState.JUMP;
         }
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("LEATHER"))
+        {
+            isOnLeather = true;
+            _rb.gravityScale = 0;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("LEATHER"))
+        {
+            isOnLeather = false;
+            _rb.gravityScale = 1;
+        }
+    }
 
 }

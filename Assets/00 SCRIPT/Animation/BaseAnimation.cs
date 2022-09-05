@@ -5,11 +5,12 @@ using playerState = PlayerController.playerState;
 
 public abstract class BaseAnimation : MonoBehaviour
 {
- 
+
+    [SerializeField] protected PlayerController playerController;
     // Start is called before the first frame update
-    void Start()
+    protected void Awake()
     {
-        
+        playerController = this.GetComponentInParent<PlayerController>();
     }
 
     // Update is called once per frame
