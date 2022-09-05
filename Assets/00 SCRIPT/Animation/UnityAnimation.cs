@@ -29,6 +29,16 @@ public class UnityAnimation : BaseAnimation
     // Update is called once per frame
     void Update()
     {
-       
+        if (Input.GetKey(KeyCode.C))
+        {
+            _animControl.SetFloat("SHOOT_ID", 1);
+        }
+        else
+        {
+            _animControl.SetFloat("SHOOT_ID", 0);
+        }
+
+        //int isShooting = Input.GetKey(KeyCode.C) ? 1 : 0;
+        //_animControl.SetFloat("SHOOT_ID", isShooting);
     }
 }
