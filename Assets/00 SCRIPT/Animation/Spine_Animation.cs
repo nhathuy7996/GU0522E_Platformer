@@ -11,7 +11,7 @@ public class Spine_Animation : BaseAnimation
 
     bool isShoot = false;
 
-    public override void ChangeAnim(PlayerController.playerState currentSTATE)
+    public override void ChangeAnim(state currentSTATE)
     {
         if (playerController.currentSTATE.Equals(currentSTATE))
             return;

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Collider2D _colli;
     [Header("Config")]
     [SerializeField] BaseAnimation _animControl;
+    [SerializeField] WeaponBase _weapon;
     [SerializeField]
     float _speed, _jumpForce, _slopeForce;
     [SerializeField]
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
         _rb = this.GetComponent<Rigidbody2D>();
         _colli = this.GetComponent<Collider2D>();
         _animControl = this.GetComponentInChildren<BaseAnimation>();
+        _weapon = this.GetComponentInChildren<WeaponBase>();
     }
 
     // Update is called once per frame
@@ -49,9 +51,6 @@ public class PlayerController : MonoBehaviour
         checkGround();
 
         updateState();
-
-       
-
         _animControl.ChangeAnim(PLAY_STATE);
     }
 
@@ -87,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity = movement;
 
-        if (Input.GetKey(KeyCode.Space) && isGround)
+        if (Input.GetKey(KeyCode.Space) && isGround  )
         {
             isGround = false;
             _rb.AddForce(new Vector2(0, _jumpForce));
@@ -202,4 +201,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+   
 }
