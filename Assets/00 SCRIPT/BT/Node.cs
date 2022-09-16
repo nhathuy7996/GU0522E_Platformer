@@ -11,7 +11,7 @@ public enum nodeState
 }
 
 [System.Serializable]
-public class Node 
+public class Node : MonoBehaviour
 {
     [SerializeField]
     protected Node _parent = null;
@@ -20,6 +20,11 @@ public class Node
     protected List<Node> _childrens = new List<Node>();
 
     public Node()
+    {
+
+    }
+
+    public void Init()
     {
 
     }

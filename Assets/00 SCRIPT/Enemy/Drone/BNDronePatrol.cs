@@ -4,28 +4,26 @@ using UnityEngine;
 
 public class BNDronePatrol : Node
 {
-
+    [SerializeField]
+    Transform target;
     Vector2 _start, _end, _target;
-
-    Transform _droneTransform;
+    [SerializeField]
     float _speed = 1;
 
-    public BNDronePatrol(Transform droneTransform, Vector2 target, float speed)
+    void Start()
     {
-        _end = target;
-        _target = target;
-        _start = droneTransform.position;
-
-        _droneTransform = droneTransform;
-        _speed = speed;
+        _end = target.transform.position;
+        _target = target.transform.position;
+        _start = this.transform.position;
+  
     }
 
     public override nodeState Evaluate()
     {
+        Debug.DrawLine(this.transform.position, _end, Color.green);
+        this.transform.position = Vector2.MoveTowards(this.transform.position, _end, _speed * Time.deltaTime );
 
-        _droneTransform.position = Vector2.MoveTowards(_droneTransform.position, _end, _speed * Time.deltaTime );
-
-        if (Vector2.Distance(_droneTransform.position, _end) <= 0.5f)
+        if (Vector2.Distance(this.transform.position, _end) <= 0.5f)
         {
             if (_end.Equals(_target))
             {
