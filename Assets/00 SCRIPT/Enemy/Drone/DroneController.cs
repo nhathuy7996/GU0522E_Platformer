@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DroneController : Tree
 {
-
+    [SerializeField] float _exp = 0;
     [SerializeField] Transform target, _player;
     [SerializeField] float _speed, _range_detect, _range_atk;
 
@@ -32,5 +32,15 @@ public class DroneController : Tree
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(this.transform.position, _range_atk);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("bullet"))
+        {
+            GameController.instant.player.GainEXP(this._exp);
+            Destroy(this.gameObject);
+        }
     }
 }

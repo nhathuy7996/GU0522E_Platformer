@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class BNDronePatrol : Node
 {
-    [SerializeField]
-    Transform target;
-    Vector2 _start, _end, _target;
+    PathCreator _path;
+    Vector2  _end;
+    int _currentIndexTarget = 0;
+
+    List<Vector3> _listPoints = new List<Vector3>();
+
     [SerializeField]
     float _speed = 1;
 
     void Start()
     {
-        _end = target.transform.position;
-        _target = target.transform.position;
-        _start = this.transform.position;
+        _path = this.GetComponent<PathCreator>();
+        _listPoints = _path.getList_Points;
+
+        this.transform.position = _listPoints[0];
+        _currentIndexTarget = 1;
+        _end = _listPoints[_currentIndexTarget];
   
     }
 
@@ -25,14 +31,10 @@ public class BNDronePatrol : Node
 
         if (Vector2.Distance(this.transform.position, _end) <= 0.5f)
         {
-            if (_end.Equals(_target))
-            {
-                _end = _start;
-            }
-            else
-            {
-                _end = _target;
-            }
+            _currentIndexTarget++;
+            if (_currentIndexTarget >= _listPoints.Count)
+                _currentIndexTarget = 0;
+            _end = _listPoints[_currentIndexTarget];
         }
 
         return nodeState.RUNNING;

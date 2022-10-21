@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Vector2 movement;
 
+    [SerializeField] public PlayerData _playerData;
+
     [SerializeField]
     playerState PLAY_STATE = playerState.IDLE;
 
@@ -42,6 +44,8 @@ public class PlayerController : MonoBehaviour
         _colli = this.GetComponent<Collider2D>();
         _animControl = this.GetComponentInChildren<BaseAnimation>();
         _weapon = this.GetComponentInChildren<WeaponBase>();
+
+       
     }
 
     // Update is called once per frame
@@ -201,6 +205,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    public void GainEXP(float newExp)
+    {
+        _playerData.EXP += newExp;
+        if(_playerData.EXP > 100)
+        {
+            _playerData.LEVEL++;
+            _playerData.EXP = _playerData.EXP - 100;
+        }
+    }
    
 }
